@@ -16,11 +16,12 @@ class ViewController: UIViewController {
     }()
     
     lazy var tableView = MyMultiTableView()
-                                     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "OneTableView Demo"
+        view.backgroundColor = .white
         view.addSubview(tableView)
         tableView.frame = view.bounds
     }
