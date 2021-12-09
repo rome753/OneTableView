@@ -1,6 +1,6 @@
 //
-//  OneTableViewCell.swift
-//  OneTableView
+//  OneCollectionViewCell.swift
+//  OneCollectionViewCell
 //
 //  Created by 陈荣超 on 2021/11/8.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class BaseOneTableViewCell: UITableViewCell {
+class BaseOneCollectionViewCell: UICollectionViewCell {
     
     class var cellHeight: CGFloat {
         return 66
@@ -18,9 +18,8 @@ class BaseOneTableViewCell: UITableViewCell {
         // no op
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .clear
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         initView()
     }
     
@@ -33,7 +32,7 @@ class BaseOneTableViewCell: UITableViewCell {
     }
 }
 
-class OneTableViewCell<D>: BaseOneTableViewCell {
+class OneCollectionViewCell<D>: BaseOneCollectionViewCell {
     
     var model: D? {
         didSet {

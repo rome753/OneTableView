@@ -1,8 +1,8 @@
 //
-//  OneTableView.swift
-//  OneTableView
+//  OneCollectionView.swift
+//  OneCollectionView
 //
-//  Created by 陈荣超 on 2021/11/8.
+//  Created by 陈荣超 on 2021/11/24.
 //
 
 import Foundation
@@ -10,20 +10,19 @@ import UIKit
 import MJRefresh
 
 // D:数据格式
-class OneTableView<D: AnyObject> : UITableView, UITableViewDelegate, UITableViewDataSource {
+class OneCollectionView<D: AnyObject> : UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate {
     
     var list: [D] = []
     
-    override init(frame: CGRect, style: Style) {
-        super.init(frame: frame, style: style)
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
         registerCells()
-        self.separatorStyle = .none
         self.backgroundColor = .clear
         self.delegate = self
         self.dataSource = self
-        if #available(iOS 15.0, *) {
-            self.sectionHeaderTopPadding = 0
-        }
+        self.bounces = true
+        self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +32,7 @@ class OneTableView<D: AnyObject> : UITableView, UITableViewDelegate, UITableView
     // 子类复写
     // 定义列表中的数据类型和cell类型，数据类型要用className()包起来，以用作Set的key
     // 数据类型与cell类型一对一，或多对一
-    open var dataCellDict:[AnyHashable: UITableViewCell.Type] {
+    open var dataCellDict:[AnyHashable: UICollectionViewCell.Type] {
         return [:]
     }
     
@@ -41,59 +40,47 @@ class OneTableView<D: AnyObject> : UITableView, UITableViewDelegate, UITableView
     // 根据dataCellDict自动注册，一般不需要复写。除非特殊情况一个数据类型对应多种Cell类型
     open func registerCells() {
         for cellType in dataCellDict.values {
-            register(cellType, forCellReuseIdentifier: className(cellType))
+            register(cellType, forCellWithReuseIdentifier: className(cellType))
         }
     }
     
     // 2.获取数量
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return list.count
     }
     
-    // 3.获取高度
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let data = list[indexPath.row]
-        if let cellType = dataCellDict[className(data)] as? BaseOneTableViewCell.Type {
-            return cellType.cellHeight
-        } else {
-            print("heightForRowAt cellType = nil \(data)")
-        }
-        return 0
-    }
-    
-    // 4.获取cell
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // 3.获取cell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = list[indexPath.row]
         if let cellType = dataCellDict[className(data)] {
-            return dequeueReusableCell(withIdentifier: className(cellType), for: indexPath)
+            return dequeueReusableCell(withReuseIdentifier: className(cellType), for: indexPath)
         } else {
-            print("cellForRowAt cellType = nil \(data)")
+            print("cellForItemAt cellType = nil \(data)")
         }
-        return UITableViewCell()
+        return UICollectionViewCell()
     }
     
-    // 5.cell即将展示，刷新数据
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.selectionStyle = .none
-        if let cell = cell as? BaseOneTableViewCell {
+    // 4.cell即将展示，刷新数据
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? BaseOneCollectionViewCell {
             cell.setAnyObject(model: list[indexPath.row])
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // no op
     }
-
+    
 }
 
 
 // 带下拉刷新和上滑加载更多功能
-class OneMJTableView<D: AnyObject>: OneTableView<D> {
+class OneMJCollectionView<D: AnyObject>: OneCollectionView<D> {
     
     var pageIndex = 0
     
-    override init(frame: CGRect, style: Style) {
-        super.init(frame: frame, style: style)
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
         if hasRefresh() {
             self.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(loadNewData))
         }
@@ -108,7 +95,7 @@ class OneMJTableView<D: AnyObject>: OneTableView<D> {
             }
         }
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -171,18 +158,17 @@ class OneMJTableView<D: AnyObject>: OneTableView<D> {
 
 
 // 只有一种cell的简单列表 D:数据格式，C:Cell格式
-class OneSimpleTableView<D: AnyObject, C: OneTableViewCell<D>>: OneTableView<D> {
+class OneSimpleCollectionView<D: AnyObject, C: OneCollectionViewCell<D>>: OneCollectionView<D> {
     
-    override var dataCellDict: [AnyHashable : UITableViewCell.Type] {
+    override var dataCellDict: [AnyHashable : UICollectionViewCell.Type] {
         return [className(D.self): C.self]
     }
 }
 
-
 // 只有一种cell的简单列表带刷新 D:数据格式，C:Cell格式
-class OneSimpleMJTableView<D: AnyObject, C: OneTableViewCell<D>>: OneMJTableView<D> {
+class OneSimpleMJCollectionView<D: AnyObject, C: OneCollectionViewCell<D>>: OneMJCollectionView<D> {
     
-    override var dataCellDict: [AnyHashable : UITableViewCell.Type] {
+    override var dataCellDict: [AnyHashable : UICollectionViewCell.Type] {
         return [className(D.self): C.self]
     }
 }
