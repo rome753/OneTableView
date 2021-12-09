@@ -30,7 +30,7 @@ class OneCollectionView<D: AnyObject> : UICollectionView, UICollectionViewDataSo
     }
     
     // 子类复写
-    // 定义列表中的数据类型和cell类型，数据类型要用className()包起来，以用作Set的key
+    // 定义列表中的数据类型和cell类型，数据类型要用className()包起来，以用作Map的key
     // 数据类型与cell类型一对一，或多对一
     open var dataCellDict:[AnyHashable: UICollectionViewCell.Type] {
         return [:]

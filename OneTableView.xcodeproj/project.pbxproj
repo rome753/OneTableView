@@ -21,7 +21,6 @@
 		EF936ADF273913AB005DBDCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF936ADD273913AB005DBDCE /* LaunchScreen.storyboard */; };
 		EF936AE8273927C8005DBDCE /* OneTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF936AE7273927C8005DBDCE /* OneTableView.swift */; };
 		EF936AEA27392995005DBDCE /* OneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF936AE927392995005DBDCE /* OneTableViewCell.swift */; };
-		EF9F300D2749277F00AD4A09 /* OneUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9F300C2749277F00AD4A09 /* OneUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,7 +41,6 @@
 		EF936AE0273913AB005DBDCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EF936AE7273927C8005DBDCE /* OneTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTableView.swift; sourceTree = "<group>"; };
 		EF936AE927392995005DBDCE /* OneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTableViewCell.swift; sourceTree = "<group>"; };
-		EF9F300C2749277F00AD4A09 /* OneUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneUtils.swift; sourceTree = "<group>"; };
 		F6C6F0ECF725487B4559EAB4 /* Pods-OneTableView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneTableView.debug.xcconfig"; path = "Target Support Files/Pods-OneTableView/Pods-OneTableView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +73,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EF4C97022761FC910001B7EC /* sample */ = {
+			isa = PBXGroup;
+			children = (
+				EF4C96FE2761F44B0001B7EC /* MyData.swift */,
+				EF4C97002761F4530001B7EC /* MyCell.swift */,
+				EF4C96F82761E0F30001B7EC /* MyViewController.swift */,
+				EF936AD6273913A9005DBDCE /* ViewController.swift */,
+			);
+			path = sample;
+			sourceTree = "<group>";
+		};
 		EF936AC6273913A9005DBDCE = {
 			isa = PBXGroup;
 			children = (
@@ -97,12 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				EF936AE6273927BA005DBDCE /* base */,
+				EF4C97022761FC910001B7EC /* sample */,
 				EF936AD2273913A9005DBDCE /* AppDelegate.swift */,
 				EF936AD4273913A9005DBDCE /* SceneDelegate.swift */,
-				EF936AD6273913A9005DBDCE /* ViewController.swift */,
-				EF4C96F82761E0F30001B7EC /* MyViewController.swift */,
-				EF4C96FE2761F44B0001B7EC /* MyData.swift */,
-				EF4C97002761F4530001B7EC /* MyCell.swift */,
 				EF936AD8273913A9005DBDCE /* Main.storyboard */,
 				EF936ADB273913AB005DBDCE /* Assets.xcassets */,
 				EF936ADD273913AB005DBDCE /* LaunchScreen.storyboard */,
@@ -114,7 +120,6 @@
 		EF936AE6273927BA005DBDCE /* base */ = {
 			isa = PBXGroup;
 			children = (
-				EF9F300C2749277F00AD4A09 /* OneUtils.swift */,
 				EF936AE7273927C8005DBDCE /* OneTableView.swift */,
 				EF936AE927392995005DBDCE /* OneTableViewCell.swift */,
 				EF4C96FA2761E4F00001B7EC /* OneCollectionView.swift */,
@@ -247,7 +252,6 @@
 				EF4C96FB2761E4F10001B7EC /* OneCollectionView.swift in Sources */,
 				EF936AE8273927C8005DBDCE /* OneTableView.swift in Sources */,
 				EF936AEA27392995005DBDCE /* OneTableViewCell.swift in Sources */,
-				EF9F300D2749277F00AD4A09 /* OneUtils.swift in Sources */,
 				EF936AD5273913A9005DBDCE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

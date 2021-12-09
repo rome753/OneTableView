@@ -9,6 +9,12 @@ import Foundation
 import UIKit
 import MJRefresh
 
+// 获取变量的类型，用object_getClass，不能用type(of:)，
+// 后者在某些情况下会失效 (release模式，放进[AnyObject]数组中的变量会被识别成AnyObject，获取不到真正类型)
+func className(_ any: Any?) -> String {
+    return "\(String(describing: object_getClass(any)))"
+}
+
 // D:数据格式
 class OneTableView<D: AnyObject> : UITableView, UITableViewDelegate, UITableViewDataSource {
     
@@ -31,7 +37,7 @@ class OneTableView<D: AnyObject> : UITableView, UITableViewDelegate, UITableView
     }
     
     // 子类复写
-    // 定义列表中的数据类型和cell类型，数据类型要用className()包起来，以用作Set的key
+    // 定义列表中的数据类型和cell类型，数据类型要用className()包起来，以用作Map的key
     // 数据类型与cell类型一对一，或多对一
     open var dataCellDict:[AnyHashable: UITableViewCell.Type] {
         return [:]

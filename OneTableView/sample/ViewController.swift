@@ -66,4 +66,15 @@ class MenuTableView: OneSimpleTableView<MyData, MyCell> {
         vc.listView = view
         getVC()?.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func getVC() -> UIViewController? {
+        var resp = self.next
+        while resp != nil {
+            if let resp = resp as? UIViewController {
+                return resp
+            }
+            resp = resp?.next
+        }
+        return nil
+    }
 }

@@ -14,7 +14,6 @@ class MyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         view.backgroundColor = .white
         view.addSubview(listView)
         listView.frame = view.bounds
@@ -82,6 +81,7 @@ class MyMultiTableView: OneMJTableView<AnyObject> {
     }
 }
 
+// MARK: 只有一种类型的简单列表
 class MyCollectionView: OneSimpleCollectionView<MyData, MyCoCell> {
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
