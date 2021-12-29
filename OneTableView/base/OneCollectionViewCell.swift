@@ -10,8 +10,8 @@ import UIKit
 
 class BaseOneCollectionViewCell: UICollectionViewCell {
     
-    class var cellHeight: CGFloat {
-        return 66
+    class var cellSize: CGSize {
+        return CGSize(width: 300, height: 66)
     }
     
     func setAnyObject(model: AnyObject?) {

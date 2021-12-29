@@ -30,6 +30,7 @@ class MenuTableView: OneSimpleTableView<MyData, MyCell> {
         list.append(MyData("简单tableView带刷新"))
         list.append(MyData("多类型tableView带刷新"))
         list.append(MyData("简单collectionView"))
+        list.append(MyData("多类型collectionView"))
         list.append(MyData("多类型collectionView带刷新"))
         reloadData()
     }
@@ -51,13 +52,15 @@ class MenuTableView: OneSimpleTableView<MyData, MyCell> {
         case 3:
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
-            layout.itemSize = CGSize(width: 100, height: 80)
             view = MyCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         case 4:
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 44)
             view = MyMultiCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        case 5:
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            view = MyMultiMJCollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         default:
             view = MyTableView()
         }

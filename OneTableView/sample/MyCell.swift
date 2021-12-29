@@ -44,6 +44,10 @@ class MyCoCell: OneCollectionViewCell<MyData> {
 
 class MyCoCell1: OneCollectionViewCell<MyData1> {
     
+    override class var cellSize: CGSize {
+        return CGSize(width: 100, height: 100)
+    }
+    
     var label: UILabel?
     
     override func initView() {

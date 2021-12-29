@@ -100,8 +100,40 @@ class MyCollectionView: OneSimpleCollectionView<MyData, MyCoCell> {
     }
 }
 
+// MARK: 多种类型的列表
+class MyMultiCollectionView: OneCollectionView<AnyObject> {
+    
+    override var dataCellDict: [AnyHashable : UICollectionViewCell.Type] {
+        return [
+            className(MyData.self): MyCoCell.self,
+            className(MyData1.self): MyCoCell1.self,
+        ]
+    }
+    
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
+        var res:[AnyObject] = []
+        for i in 0...5 {
+            let d = MyData("type0 \(i)")
+            res.append(d)
+            
+            let d1 = MyData1("type1 \(i)")
+            res.append(d1)
+            res.append(d1)
+            res.append(d1)
+        }
+        self.list = res
+        reloadData()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
 // MARK: 多种类型的列表带刷新
-class MyMultiCollectionView: OneMJCollectionView<AnyObject> {
+class MyMultiMJCollectionView: OneMJCollectionView<AnyObject> {
     
     override var dataCellDict: [AnyHashable : UICollectionViewCell.Type] {
         return [

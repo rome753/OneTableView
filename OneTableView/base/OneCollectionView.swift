@@ -10,7 +10,7 @@ import UIKit
 import MJRefresh
 
 // D:数据格式
-class OneCollectionView<D: AnyObject> : UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate {
+class OneCollectionView<D: AnyObject> : UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var list: [D] = []
     
@@ -49,7 +49,18 @@ class OneCollectionView<D: AnyObject> : UICollectionView, UICollectionViewDataSo
         return list.count
     }
     
-    // 3.获取cell
+    // 3.获取宽高
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let data = list[indexPath.row]
+        if let cellType = dataCellDict[className(data)] as? BaseOneCollectionViewCell.Type {
+            return cellType.cellSize
+        } else {
+            print("sizeForItemAt cellType = nil \(data)")
+        }
+        return CGSize.zero
+    }
+    
+    // 4.获取cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let data = list[indexPath.row]
         if let cellType = dataCellDict[className(data)] {
@@ -60,7 +71,7 @@ class OneCollectionView<D: AnyObject> : UICollectionView, UICollectionViewDataSo
         return UICollectionViewCell()
     }
     
-    // 4.cell即将展示，刷新数据
+    // 5.cell即将展示，刷新数据
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? BaseOneCollectionViewCell {
             cell.setAnyObject(model: list[indexPath.row])
